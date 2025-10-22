@@ -21,7 +21,20 @@
 
 <img src="./figures/original.gif" width="49%" height="50%"/> <img src="./figures/decompressed.gif" width="49%" height="50%"/>
 
-To appear in IEEE Robotics and Automation Letters
+***Code and pre-trained weights will be released before January 2026***
 
-Code and pre-trained weights will be released before January 2026
+<h2>📝 Citation</h2>
 
+If you found this work useful, please cite the following publication:
+
+```bibtex
+@article{stathoulopoulos2025sgadpcc,
+  author={Stathoulopoulos, Nikolaos and Kanellakis, Christoforos and Nikolakopoulos, George},
+  journal={IEEE Robotics and Automation Letters}, 
+  title={{Have We Scene It All? Scene Graph-Aware Deep Point Cloud Compression}}, 
+  year={2025},
+  pages={1-8},
+  doi={10.1109/LRA.2025.3623045}
+}
+
+```
