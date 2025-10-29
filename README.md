@@ -33,8 +33,10 @@ If you found this work useful, please cite the following publication:
   journal={IEEE Robotics and Automation Letters}, 
   title={{Have We Scene It All? Scene Graph-Aware Deep Point Cloud Compression}}, 
   year={2025},
-  pages={1-8},
-  doi={10.1109/LRA.2025.3623045}
+  volume={10},
+  number={12},
+  pages={12477-12484},
+  doi={10.1109/LRA.2025.3623045}}
 }
 
 ```
