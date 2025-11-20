@@ -5,11 +5,11 @@
 
 [![arXiv](https://img.shields.io/badge/Arxiv-2510.08512-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2510.08512)
 [![DOI:10.1109/LRA.2025.3623045](https://img.shields.io/badge/IEEE-10.1109/LRA.2025.3623045-00629B.svg)](https://doi.org/10.1109/LRA.2025.3623045)
-![Python](https://img.shields.io/badge/Python-3670A0?logo=python&logoColor=ffdd54)
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
-![Linux](https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black)
-    
-[**Nikolaos Stathoulopoulos**](https://github.com/nstathou) · [**Christoforos Kanellakis**](https://github.com/christoforoskanel) · [**George Nikolakopoulos**](https://github.com/geonikolak)
+  <a href="https://www.youtube.com/watch?v=MFKrhtmc3Tw"><img src="https://badges.aleen42.com/src/youtube.svg" alt="YouTube" /></a>
+  
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/) ![Linux](https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black)
+
+[**Nikolaos Stathoulopoulos**](https://github.com/nstathou) · [**Christoforos Kanellakis**](https://github.com/christoforoskanel) · [**George Nikolakopoulos**](https://github.com/geonikolak) 
 
 </div>
 
