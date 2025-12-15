@@ -4,7 +4,7 @@ from torch_geometric.data import Dataset  # type: ignore
 from torch_geometric.data import Data     # type: ignore
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from recnetpp_utils.LaserScan import SemLaserScan
+from sgadpcc_utils.LaserScan import SemLaserScan
 from modules.SSG import SSG
 from modules.PatchExtractor import PatchExtractor
 
