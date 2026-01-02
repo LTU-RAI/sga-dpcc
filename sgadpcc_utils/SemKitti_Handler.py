@@ -25,6 +25,7 @@ class SemKitti_Handler:
                 The SemanticKITTI dataset is expected to have the following structure:
                 path_to_dataset
                 SemanticKitti
+                ├── semantic-kitti.yaml
                 ├── calib.txt
                 |── sequences
                     ├── 00
