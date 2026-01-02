@@ -23,22 +23,22 @@
 
 ---
 
-## Table of Contents
+## 📋 Table of Contents
 
-- [Introduction](#introduction)
-- [Setup](#setup)
+- [Introduction](#-introduction)
+- [Setup](#-setup)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Environment Setup](#environment-setup)
   - [Dataset Setup](#dataset-setup)
   - [Configuration](#configuration)
-- [Pre-trained Weights](#pre-trained-weights)
-- [Train](#train)
-- [Test](#test)
+- [Pre-trained Weights](#-pre-trained-weights)
+- [Train](#-train)
+- [Test](#-test)
   - [Running Inference](#running-inference)
   - [Encode-Only Workflow](#encode-only-workflow)
   - [Decode-Only Workflow](#decode-only-workflow)
-- [Citation](#citation)
+- [Citation](#-citation)
 
 ---
 
