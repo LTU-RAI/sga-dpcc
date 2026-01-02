@@ -1,0 +1,115 @@
+1: # Terrain
+  # epochs: 128
+  max_points: 720 #1024
+  min_points: 128  # for training
+  repulsion_weight: [0.0, 0.0, 0]
+  repulsion_threshold: 0.0
+  density_weight: [1000000.0, 10000.0, 24]
+  grid_size: 32
+  coarse_weight: [1.0, 0.01, 16]
+  lambda_mask_final_schedule: [5.0, 0.01, 24]  
+  lambda_mask_coarse_schedule: [5.0, 0.01, 16]
+  mask_threshold: 0.5
+  encoder:
+    input_dim: 3
+    encoder_blocks: 3
+    feature_dim: 64
+    latent_dim: 128
+    pos_enc_dim: 32
+    num_classes: 20
+    sem_dim: 16
+    dropout_prob: 0.1
+  decoder:
+    latent_dim: 128
+    coarse_points: 180
+    feature_dim: 64
+    upsample_factors: 4
+    decoder_hidden_dims: [64, 128]
+    output_dim: 3
+2: # Static Objects
+  # epochs: 196
+  max_points: 320
+  min_points: 16  # for training
+  repulsion_weight: [0.0, 0.0, 0]
+  repulsion_threshold: 0.0
+  density_weight: [100000.0, 1.0, 0]
+  grid_size: 16
+  coarse_weight: [1.0, 0.01, 15]
+  lambda_mask_final_schedule: [5.0, 0.01, 24] 
+  lambda_mask_coarse_schedule: [5.0, 0.01, 16]
+  mask_threshold: 0.5
+  encoder:
+    input_dim: 3
+    encoder_blocks: 3
+    feature_dim: 64
+    latent_dim: 64 #16 #32
+    pos_enc_dim: 32
+    num_classes: 20
+    sem_dim: 16
+    dropout_prob: 0.1
+  decoder:
+    latent_dim: 64 #16 #32
+    coarse_points: 80
+    feature_dim: 64
+    upsample_factors: 4
+    decoder_hidden_dims: [64, 128]
+    output_dim: 3
+3: # Dynamic Objects
+  # epochs: 256
+  max_points: 1536 #2048
+  min_points: 16  # for training
+  repulsion_weight: [0.0, 0.0, 0]
+  repulsion_threshold: 0.0
+  density_weight: [100000.0, 1.0, 48] #32]
+  grid_size: 32
+  coarse_weight: [1.0, 0.01, 24]
+  lambda_mask_final_schedule: [1.0, 0.01, 48] #32]  
+  lambda_mask_coarse_schedule: [1.0, 0.01, 32] #24]
+  mask_threshold: 0.5
+  encoder:
+    input_dim: 3
+    encoder_blocks: 3
+    feature_dim: 128
+    latent_dim: 32 #32 #64
+    pos_enc_dim: 32
+    num_classes: 20
+    sem_dim: 32
+    dropout_prob: 0.1
+  decoder:
+    latent_dim: 32 #32
+    coarse_points: 384 #512
+    feature_dim: 64
+    upsample_factors: 4
+    decoder_hidden_dims: [64, 128]
+    output_dim: 3
+4: # Infrastructure
+  # epochs: 160
+  max_points: 1720 #2048
+  min_points: 72 #64  # for training
+  repulsion_weight: [0.0, 0.0, 0]
+  repulsion_threshold: 0.0
+  density_weight: [100000.0, 1.0, 24]
+  grid_size: 32
+  coarse_weight: [1.0, 0.01, 16]
+  lambda_mask_final_schedule: [5.0, 0.01, 24]  
+  lambda_mask_coarse_schedule: [5.0, 0.01, 16]
+  mask_threshold: 0.5
+  encoder:
+    input_dim: 3
+    encoder_blocks: 3
+    feature_dim: 128
+    latent_dim: 128
+    pos_enc_dim: 64
+    num_classes: 20
+    sem_dim: 16
+    dropout_prob: 0.1
+  decoder:
+    latent_dim: 128
+    coarse_points: 430 #512 #640
+    feature_dim: 64
+    upsample_factors: 4
+    decoder_hidden_dims: [64, 128]
+    output_dim: 3
+
+
+

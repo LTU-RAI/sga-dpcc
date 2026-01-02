@@ -1,0 +1,11 @@
+dataset:
+  data_path: /home/niksta/Documents/datasets_2/SemanticKitti
+  semantic-kitti-conf: /home/niksta/Documents/datasets_2/SemanticKitti/semantic-kitti.yaml
+autoencoder: 
+  config: /home/niksta/python_projects/sga-dpcc/config/autoencoder.yaml
+vocabulary: 
+  terrain_classes: [40, 44, 48, 49, 72]  ## Layer: 1
+  infrastructure_classes: [70, 50, 51]  ## Layer: 4
+  object_classes: [71, 80, 81]  ## Layer: 2 
+  agent_classes: [10, 11, 15, 18, 20, 30, 31, 32]  ## Layer: 3
+
