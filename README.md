@@ -118,6 +118,7 @@ SemanticKitti/
 
 ## 🏋️‍♂️ Train
 <a id="train">
+
 If you wish to just test with the pretrained weights just skip to **[Test](#test)** section. 
 
 ***to be updated***
@@ -127,6 +128,7 @@ If you wish to just test with the pretrained weights just skip to **[Test](#test
 
 ## ⚙️ Test
 <a id="test">
+
 
 
 <h2>📝 Citation</h2>
