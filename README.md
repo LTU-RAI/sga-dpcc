@@ -23,6 +23,25 @@
 
 ---
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Setup](#setup)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Environment Setup](#environment-setup)
+  - [Dataset Setup](#dataset-setup)
+  - [Configuration](#configuration)
+- [Pre-trained Weights](#pre-trained-weights)
+- [Train](#train)
+- [Test](#test)
+  - [Running Inference](#running-inference)
+  - [Encode-Only Workflow](#encode-only-workflow)
+  - [Decode-Only Workflow](#decode-only-workflow)
+- [Citation](#citation)
+
+---
+
 ## 🚀 Setup
 
 Tested with Python 3.8, should work with newer versions as long as you get the correct versions of PyTorch, torch-geometric, and Open3D.
@@ -40,7 +59,6 @@ Tested with Python 3.8, should work with newer versions as long as you get the c
 git clone https://github.com/LTU-RAI/sga-dpcc.git
 cd sga-dpcc
 ```
-
 
 ### Environment Setup
 
@@ -117,7 +135,6 @@ SemanticKitti/
 ---
 
 ## 🏋️‍♂️ Train
-<a id="train"></a>
 
 If you wish to just test with the pretrained weights just skip to **[Test](#test)** section. 
 
@@ -128,7 +145,6 @@ If you wish to just test with the pretrained weights just skip to **[Test](#test
 ---
 
 ## ⚙️ Test
-<a id="test"></a>
 
 ### Running Inference
 
