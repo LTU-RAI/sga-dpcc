@@ -41,6 +41,7 @@ git clone https://github.com/LTU-RAI/sga-dpcc.git
 cd sga-dpcc
 ```
 
+
 ### Environment Setup
 
 Using a virtual environment is strongly recommended. You can use any virtual environment manager you prefer.
@@ -57,9 +58,10 @@ pip install -r requirements.txt
 
 ```bash
 python -m venv sga-dpcc-env
-source sga-dpcc-env/bin/activate  # On Windows: sga-dpcc-env\Scripts\activate
+source sga-dpcc-env/bin/activate  
 pip install -r requirements.txt
 ```
+
 
 ### Dataset Setup
 
@@ -87,7 +89,8 @@ SemanticKitti/
     └── ...
 ```
 
-**Note:** Additional data structures (semantic scene graphs, etc.) will be generated in a later step during the training setup — see the [Training](#training) section below.
+**Note:** Additional data structures (semantic scene graphs, etc.) will be generated in a later step during the training setup — see the **[Train](#train)** section below.
+
 
 ### Configuration
 
@@ -113,7 +116,17 @@ SemanticKitti/
 
 ---
 
-## Training
+## 🏋️‍♂️ Train
+
+If you wish to just test with the pretrained weights just skip to **[Test](#test)** section. 
+
+***to be updated***
+
+...
+---
+
+## ⚙️ Test
+
 
 
 <h2>📝 Citation</h2>
