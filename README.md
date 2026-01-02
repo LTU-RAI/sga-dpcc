@@ -129,7 +129,63 @@ If you wish to just test with the pretrained weights just skip to **[Test](#test
 ## ⚙️ Test
 <a id="test">
 
+### Running Inference
 
+The `test/predict.py` script performs point cloud compression inference using the pre-trained autoencoder models. It encodes point clouds into compact semantic scene graphs + the latents and reconstructs them, computing compression metrics.
+
+### Basic Usage
+
+```bash
+cd test
+python predict.py
+```
+
+This runs inference with default parameters on sequence `00`, scan `000000`.
+
+### Command-line Arguments
+
+| Argument | Type | Default | Description |
+|----------|------|---------|-------------|
+| `--root` | str | `~/Documents/datasets_2/SemanticKitti` | Root directory of SemanticKITTI dataset |
+| `--config_path` | str | `~/python_projects/sga-dpcc/config/config-latest.yaml` | Path to main configuration file |
+| `--selected_layers` | int(s) | `1 2 3 4` | Layer indices to process (space-separated) |
+| `--max_range` | float | `50.0` | Maximum range for point cloud (meters) |
+| `--device` | str | `cuda` or `cpu` | Device for inference (`cuda` or `cpu`) |
+| `--sequence` | str | `00` | Sequence number from dataset (e.g., `08`) |
+| `--scan_id` | str | `000000` | Scan ID to process (e.g., `000100`) |
+
+**Note:** Latent dimensions are automatically loaded from `config/autoencoder.yaml` based on selected layers.
+
+### Example Commands
+
+Process a specific sequence and scan:
+```bash
+python predict.py --sequence 06 --scan_id 000500
+```
+
+Use only layers 3 and 4:
+```bash
+python predict.py --selected_layers 3 4
+```
+
+Run on CPU:
+```bash
+python predict.py --device cpu
+```
+
+### Output
+
+The script generates:
+- **predicted.pcd** - Reconstructed point cloud with semantic colors
+- **gt.pcd** - Ground truth point cloud for comparison
+- **Console metrics:**
+  - Compressed size (MB)
+  - Original size (MB)
+  - Number of reconstructed points
+  - Bits per point (BPP)
+  - Compression ratio
+  - Size reduction percentage
+---
 
 ## 📝 Citation
 
