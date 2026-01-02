@@ -186,6 +186,7 @@ The script generates:
   - Bits per point (BPP)
   - Compression ratio
   - Size reduction percentage
+  - Chamfer distance (reconstructed vs. ground truth)
 
 #### Visualizing Results
 

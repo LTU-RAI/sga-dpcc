@@ -263,12 +263,26 @@ def main():
     # Calculate compression ratio
     compression_ratio = original_size / compressed_size if compressed_size > 0 else 0
     
+    # Chamfer distance between reconstructed and ground truth point clouds
+    pred_pts_np = np.asarray(pcd_combined.points)
+    gt_pts_np = np.asarray(gt_pcd.points)
+    if pred_pts_np.size == 0 or gt_pts_np.size == 0:
+        chamfer_val = None
+    else:
+        pred_tensor = torch.from_numpy(pred_pts_np).float().to("cpu")
+        gt_tensor = torch.from_numpy(gt_pts_np).float().to("cpu")
+        chamfer_val = chamfer_distance(pred_tensor, gt_tensor).item()
+    
     print(f"  Compressed size: {compressed_size / (1024**2):.2f} MB")
     print(f"  Original size: {original_size / (1024**2):.2f} MB")
     print(f"  Number of points (reconstructed): {num_points:,}")
     print(f"  Bits per point (BPP): {bpp:.4f}")
     print(f"  Compression ratio: {compression_ratio:.2f}x")
     print(f"  Size reduction: {(1 - compressed_size/original_size)*100:.2f}%")
+    if chamfer_val is None:
+        print("  Chamfer distance: N/A (empty point cloud)")
+    else:
+        print(f"  Chamfer distance: {chamfer_val:.6f}")
     print()
     
     # ========================================
