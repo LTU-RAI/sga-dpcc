@@ -131,7 +131,7 @@ If you wish to just test with the pretrained weights just skip to **[Test](#test
 
 
 
-<h2>📝 Citation</h2>
+## 📝 Citation
 
 If you found this work useful, please cite the following publication:
 
