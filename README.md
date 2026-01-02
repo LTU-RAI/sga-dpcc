@@ -129,6 +129,7 @@ If you wish to just test with the pretrained weights just skip to **[Test](#test
 ## ⚙️ Test
 <a id="test">
 
+
 ### Running Inference
 
 The `test/predict.py` script performs point cloud compression inference using the pre-trained autoencoder models. It encodes point clouds into compact semantic scene graphs + the latents and reconstructs them, computing compression metrics.
@@ -151,7 +152,7 @@ This runs inference with default parameters on sequence `00`, scan `000000`.
 | `--selected_layers` | int(s) | `1 2 3 4` | Layer indices to process (space-separated) |
 | `--max_range` | float | `50.0` | Maximum range for point cloud (meters) |
 | `--device` | str | `cuda` or `cpu` | Device for inference (`cuda` or `cpu`) |
-| `--sequence` | str | `00` | Sequence number from dataset (e.g., `08`) |
+| `--sequence` | str | `00` | Sequence number from dataset (e.g., `06`) |
 | `--scan_id` | str | `000000` | Scan ID to process (e.g., `000100`) |
 
 **Note:** Latent dimensions are automatically loaded from `config/autoencoder.yaml` based on selected layers.
@@ -185,6 +186,18 @@ The script generates:
   - Bits per point (BPP)
   - Compression ratio
   - Size reduction percentage
+
+#### Visualizing Results
+
+You can visualize the `.pcd` files using PCL tools or other point cloud viewers:
+
+```bash
+# Using PCL Viewer (if installed)
+pcl_viewer predicted.pcd
+
+# Using Open3D (Python)
+python -c "import open3d as o3d; o3d.visualization.draw_geometries([o3d.io.read_point_cloud('predicted.pcd')])"
+```
 ---
 
 ## 📝 Citation
