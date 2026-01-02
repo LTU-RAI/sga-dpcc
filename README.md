@@ -144,7 +144,7 @@ If you found this work useful, please cite the following publication:
   volume={10},
   number={12},
   pages={12477-12484},
-  doi={10.1109/LRA.2025.3623045}}
+  doi={10.1109/LRA.2025.3623045}
 }
 
 ```
