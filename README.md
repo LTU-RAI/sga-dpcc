@@ -199,6 +199,38 @@ pcl_viewer predicted.pcd
 # Using Open3D (Python)
 python -c "import open3d as o3d; o3d.visualization.draw_geometries([o3d.io.read_point_cloud('predicted.pcd')])"
 ```
+
+### Encode-Only Workflow
+
+For transmitting compressed data, use `test/encode.py` to encode a scan and save the compressed SSG with latents:
+
+```bash
+cd test
+python encode.py --sequence 06 --scan_id 000500
+```
+
+This creates `06_000500.pkl` (compressed semantic scene graph with latent representations).
+
+**Key Options:**
+- `--output_bytes` - Custom output path for encoded bytes (defaults to `{sequence}_{scan_id}.pkl`)
+
+### Decode-Only Workflow
+
+Reconstruct a point cloud from previously encoded bytes using `test/decode.py`:
+
+```bash
+cd test
+python decode.py --sequence 06 --scan_id 000500 --input_bytes 06_000500.pkl
+```
+
+This reads the encoded SSG and reconstructs `06_000500.pcd`.
+
+**Key Options:**
+- `--input_bytes` - Path to encoded bytes (defaults to `{sequence}_{scan_id}.pkl`)
+- `--output_pcd` - Custom output path for PCD (defaults to `{sequence}_{scan_id}.pcd`)
+- `--skip_gt` - Skip loading ground truth (for decoding without access to original dataset)
+- `--compute_chamfer` - Compute Chamfer distance metric (requires ground truth)
+
 ---
 
 ## 📝 Citation
