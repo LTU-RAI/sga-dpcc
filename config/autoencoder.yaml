@@ -14,13 +14,13 @@
     input_dim: 3
     encoder_blocks: 3
     feature_dim: 64
-    latent_dim: 128
+    latent_dim: 16 # 128
     pos_enc_dim: 32
     num_classes: 20
     sem_dim: 16
     dropout_prob: 0.1
   decoder:
-    latent_dim: 128
+    latent_dim: 16 #128
     coarse_points: 180
     feature_dim: 64
     upsample_factors: 4
@@ -42,13 +42,13 @@
     input_dim: 3
     encoder_blocks: 3
     feature_dim: 64
-    latent_dim: 64 #16 #32
+    latent_dim: 32 # 16 # 64
     pos_enc_dim: 32
     num_classes: 20
     sem_dim: 16
     dropout_prob: 0.1
   decoder:
-    latent_dim: 64 #16 #32
+    latent_dim: 32 # 16 # 64
     coarse_points: 80
     feature_dim: 64
     upsample_factors: 4
@@ -70,13 +70,13 @@
     input_dim: 3
     encoder_blocks: 3
     feature_dim: 128
-    latent_dim: 32 #32 #64
+    latent_dim: 16 # 32 # 64
     pos_enc_dim: 32
     num_classes: 20
     sem_dim: 32
     dropout_prob: 0.1
   decoder:
-    latent_dim: 32 #32
+    latent_dim: 16 # 32
     coarse_points: 384 #512
     feature_dim: 64
     upsample_factors: 4
@@ -98,13 +98,13 @@
     input_dim: 3
     encoder_blocks: 3
     feature_dim: 128
-    latent_dim: 128
+    latent_dim: 32 #128
     pos_enc_dim: 64
     num_classes: 20
     sem_dim: 16
     dropout_prob: 0.1
   decoder:
-    latent_dim: 128
+    latent_dim: 32 # 128
     coarse_points: 430 #512 #640
     feature_dim: 64
     upsample_factors: 4
