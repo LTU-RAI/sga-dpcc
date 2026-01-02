@@ -130,9 +130,11 @@ If you wish to just test with the pretrained weights just skip to **[Test](#test
 ## ⚙️ Test
 <a id="test">
 
+### Running Inference
+
 The `test/predict.py` script performs point cloud compression inference using the pre-trained autoencoder models. It encodes point clouds into compact semantic scene graphs + the latents and reconstructs them, computing compression metrics.
 
-### Basic Usage
+#### Basic Usage
 
 ```bash
 cd test
