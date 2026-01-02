@@ -1,7 +1,7 @@
 <div align="center">
   
-<h1><em>Have We Scene It All?</em></h1>
-<h2>Scene Graph-Aware Deep Point Cloud Compression</h2>
+# *Have We Scene It All?*
+## Scene Graph-Aware Deep Point Cloud Compression
 
 [![arXiv](https://img.shields.io/badge/Arxiv-2510.08512-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2510.08512)
 [![DOI:10.1109/LRA.2025.3623045](https://img.shields.io/badge/IEEE-10.1109/LRA.2025.3623045-00629B.svg)](https://doi.org/10.1109/LRA.2025.3623045)
@@ -15,7 +15,7 @@
 
 <p align=center> <img src="./figures/dpcc-concept.drawio.png" width="75%" height="75%"/> </p>
 
-<h2>💡 Introduction</h2>
+## 💡 Introduction
 
 **Abstract:** Efficient transmission of 3D point cloud data is critical for advanced perception in centralized and decentralized multi-agent robotic systems, especially nowadays with the growing reliance on edge and cloud-based processing. However, the large and complex nature of point clouds creates challenges under bandwidth constraints and intermittent connectivity, often degrading system performance. We propose a deep compression framework based on semantic scene graphs. The method decomposes point clouds into semantically coherent patches and encodes them into compact latent representations with semantic-aware encoders conditioned by Feature-wise Linear Modulation (FiLM). A folding-based decoder, guided by latent features and graph node attributes, enables structurally accurate reconstruction. Experiments on the SemanticKITTI and nuScenes datasets show that the framework achieves state-of-the-art compression rates, reducing data size by up to 98% while preserving both structural and semantic fidelity. In addition, it supports downstream applications such as multi-robot pose graph optimization and map merging, achieving trajectory accuracy and map alignment comparable to those obtained with raw LiDAR scans. 
 
@@ -23,59 +23,98 @@
 
 ---
 
-<h2> Setup <h2>
+## 🚀 Setup
 
-tested with python 3.8, should work with newer versions as long as you get the correct versions of pytorch torch-geometric and open3d.
+Tested with Python 3.8, should work with newer versions as long as you get the correct versions of PyTorch, torch-geometric, and Open3D.
 
-In your desired working directory:
+### Prerequisites
 
-git clone https://github.com/LTU-RAI/sga-dpcc.git 
+- Python 3.8 or higher
+- CUDA-compatible GPU (recommended for training)
 
-<h3> Conda environment <h3>
+### Installation
 
-Using a virtual environment is not required but is recommended. You can use any virtual environment you want. A requirements list is provided in the requirements.txt
+1. Clone the repository to your desired working directory:
 
-For conda:
+```bash
+git clone https://github.com/LTU-RAI/sga-dpcc.git
+cd sga-dpcc
+```
 
-conda create -n sga-dpcc --file requirements.txt
+### Environment Setup
 
-<h3> Dataset setup <h3>
+Using a virtual environment is strongly recommended. You can use any virtual environment manager you prefer.
 
-Download and put to the desired directory the SemanticKITTI dataset as provided by the original authors https://semantic-kitti.org/dataset.html
+#### Using Conda (Recommended)
 
-The initial structure of the dataset is expected to have the following structure:
-                path_to_dataset
-                SemanticKitti
-                ├── semantic-kitti.yaml
-                ├── calib.txt
-                |── sequences
-                    ├── 00
-                    │   ├── poses (contains the txt file, 4x4 transformation matrices)
-                    │   │   ├── 00.txt
-                    │   ├── velodyne (contains the point clouds)
-                    │   │   ├── 000000.bin
-                    │   |   ├── ...
-                    │   ├── labels
-                    │   │   ├── 000000.label
-                    │   │   ├── ...
-                    ├── 01
-                    │   ├── ...
+```bash
+conda create -n sga-dpcc python=3.8
+conda activate sga-dpcc
+pip install -r requirements.txt
+```
 
-Later on we will create additional data for the training such as the semantic scene graphs etc. Check the ...
+#### Using pip with venv
 
-<h3> Config file <h3>
+```bash
+python -m venv sga-dpcc-env
+source sga-dpcc-env/bin/activate  # On Windows: sga-dpcc-env\Scripts\activate
+pip install -r requirements.txt
+```
 
-In the config-latest.yaml make sure to change all paths so they point to your corresponding directories for the dataset and the rest of the config files. 
-The autoencoder.yaml controls the parameters for all the layers for both testing and training.
-Note: in the config-latest.yaml the layer classes are defined based on the SemanticKITTI label classes. We not that the layers 3 and 4 are reversed with regard to the paper. 
+### Dataset Setup
+
+1. Download the SemanticKITTI dataset from the [official website](https://semantic-kitti.org/dataset.html)
+2. Extract the dataset to your desired directory
+3. Ensure the dataset follows this directory structure:
+
+```
+path_to_dataset/
+SemanticKitti/
+├── semantic-kitti.yaml
+├── calib.txt
+└── sequences/
+    ├── 00/
+    │   ├── poses/          # 4x4 transformation matrix
+    │   │   └── 00.txt
+    │   ├── velodyne/       # Point cloud files
+    │   │   ├── 000000.bin
+    │   │   └── ...
+    │   └── labels/         # Semantic labels
+    │       ├── 000000.label
+    │       └── ...
+    ├── 01/
+    │   └── ...
+    └── ...
+```
+
+**Note:** Additional data structures (semantic scene graphs, etc.) will be generated in a later step during the training setup — see the [Training](#training) section below.
+
+### Configuration
+
+1. **Main Configuration**: Update `config/config-latest.yaml`
+   - Modify all file paths to point to your corresponding directories
+   - Set the correct path to your SemanticKITTI dataset
+   - Adjust output directories as needed
+
+2. **Autoencoder Configuration**: The `config/autoencoder.yaml` file controls:
+   - Parameters for all compression layers
+   - Training and testing hyperparameters
+   - Model architecture settings
+
+**Important Note**: In `config-latest.yaml`, the layer classes are defined based on SemanticKITTI label classes. Please note that layers 3 and 4 are reversed compared to the paper.
+
 ---
 
-<h2> Pre-trained weights <h2>
+## 📦 Pre-trained Weights
 
-You can download the pretrained weights at https://drive.google.com/drive/folders/1uqyPaKKuTkqtskoj9h4XdJt-PfJAE5Mm?usp=drive_link
+1. Download the pre-trained weights from [Google Drive](https://drive.google.com/drive/folders/1uqyPaKKuTkqtskoj9h4XdJt-PfJAE5Mm?usp=drive_link)
+2. Extract and place them in the `weights/checkpoints/` directory
+3. Ensure the directory structure matches the existing checkpoint folders
 
-Add the to the weights/checkpoints/ folder.
 ---
+
+## Training
+
 
 <h2>📝 Citation</h2>
 
