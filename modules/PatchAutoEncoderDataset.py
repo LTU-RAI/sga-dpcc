@@ -1,9 +1,8 @@
 import os, sys, torch, time, yaml
 import numpy as np
-from torch_geometric.data import Dataset  # type: ignore
-from torch_geometric.data import Data     # type: ignore
+from torch_geometric.data import Dataset
+from torch_geometric.data import Data
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
 from sgadpcc_utils.LaserScan import SemLaserScan
 from modules.SSG import SSG
 from modules.PatchExtractor import PatchExtractor
@@ -36,8 +35,6 @@ class PatchDataset(Dataset):
         self.load_filenames()
         self.sem_scan = SemLaserScan(
             sem_color_dict=self.kitti_config['color_map'], 
-            project=False,
-            H=64, W=2048, fov_up=3.0, fov_down=-24.9
         )
         self.ssg = SSG(vocabulary=self.config['vocabulary'])
         # Note: the PatchExtractor is already configured with target_layers;
@@ -98,9 +95,9 @@ class PatchDataset(Dataset):
         nodes = self.load_ssg(idx)
         # Load semantic and reconstructed scans.
         target_sem_scan = self.load_sem_scan(idx)
-        rec_scan = self.load_rec_scan(idx)
+        # rec_scan = self.load_rec_scan(idx)
         # Convert to torch tensors.
-        rec_scan = torch.tensor(rec_scan, dtype=torch.float32)
+        # rec_scan = torch.tensor(rec_scan, dtype=torch.float32)
         target_sem_scan = torch.tensor(target_sem_scan, dtype=torch.float32)
         # Extract patches using the patch extractor.
         patches = self.patch_extractor.extract_patches(target_sem_scan, nodes, gamma=0.0)
