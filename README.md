@@ -72,7 +72,6 @@ source sga-dpcc-env/bin/activate
 pip install -r requirements.txt
 ```
 
-
 ### Dataset Setup
 
 1. Download the SemanticKITTI dataset from the [official website](https://semantic-kitti.org/dataset.html)
@@ -128,13 +127,67 @@ SemanticKitti/
 
 ## 🏋️‍♂️ Train
 
-If you wish to just test with the pretrained weights just skip to **[Test](#test)** section. 
+If you wish to just test with the pretrained weights, skip to **[Test](#test)** section.
 
-***to be updated***
+### Step 1: Generate Semantic Scene Graphs
 
-...
+Before training, generate the semantic scene graph (SSG) for each scan that contains the point patches for each layer.
 
----
+```bash
+python modules/GenSSG.py --ssg_config /path/to/config-latest.yaml
+```
+
+**Arguments:**
+- `--ssg_config` - Path to your main config YAML file (required; defaults to built-in path)
+
+This generates `.pickle` files in a `graph/` subdirectory for each sequence, corresponding to each scan's SSG.
+
+### Step 2: Train the Autoencoder
+
+Train layer-specific autoencoders using the generated SSGs and point cloud patches.
+
+```bash
+python train/train.py --layer 1 --num_epochs 100 --batch_size 8
+```
+
+**Key Arguments:**
+- `--layer` (required) - Layer to train: `1`, `2`, `3`, or `4`
+- `--batch_size` - Batch size (default: 8)
+- `--num_epochs` - Number of training epochs (default: 100)
+- `--num_workers` - Workers for data loading (default: 8)
+- `--lr` - Learning rate (default: 5e-4)
+- `--weight_decay` - Weight decay for optimizer (default: 1e-6)
+- `--max_range` - Max point cloud range in meters (default: 50.0)
+- `--config_path` - Path to main config YAML
+- `--root` - Root directory of SemanticKITTI dataset
+- `--save_path` - Directory to save checkpoints
+- `--device` - Device for training: `cuda` or `cpu` (default: auto-detected)
+- `--cuda_visible_devices` - Comma-separated GPU IDs (e.g., `0,1,2,3`, default: `0`)
+- `--checkpoint` - Resume from checkpoint (path fragment, e.g., `20250105-12`)
+
+The script automatically detects and handles distributed setup. Checkpoints are saved with a timestamp in `{save_path}/{YYYYMMDD-HH}/autoencoder_layer_{layer}.torch`.
+
+**Example: Train layer 1 with custom paths**
+
+```bash
+python train/train.py \
+  --layer 1 \
+  --num_epochs 100 \
+  --batch_size 16 \
+  --config_path /home/user/config-latest.yaml \
+  --root /home/user/SemanticKitti \
+  --save_path /home/user/checkpoints
+```
+
+**Multi-GPU Training**
+
+For distributed training across multiple GPUs, use `torchrun`:
+
+```bash
+torchrun --nproc_per_node=4 train/train.py --layer 1 --num_epochs 100 --cuda_visible_devices 0,1,2,3
+```
+
+The script automatically detects and handles distributed setup. Checkpoints are saved with a timestamp in `{save_path}/{YYYYMMDD-HH}/autoencoder_layer_{layer}.torch`.
 
 ## ⚙️ Test
 
