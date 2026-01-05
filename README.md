@@ -28,7 +28,7 @@
 - [💡 Introduction](#-introduction)
 - [🚀 Setup](#-setup) — [Prerequisites](#prerequisites) • [Installation](#installation) • [Environment Setup](#environment-setup) • [Dataset Setup](#dataset-setup) • [Configuration](#configuration)
 - [📦 Pre-trained Weights](#-pre-trained-weights)
-- [🏋️ Train](#-train)
+- [🏋️ Train](#-train) — [Generate Semantic Scene Graphs](#step-1-generate-semantic-scene-graphs) • [Train the Autoencoder](#step-2-train-the-autoencoder)
 - [⚙️ Test](#-test) — [Running Inference](#running-inference) • [Encode-Only Workflow](#encode-only-workflow) • [Decode-Only Workflow](#decode-only-workflow)
 - [📝 Citation](#-citation)
 
@@ -164,8 +164,6 @@ python train/train.py --layer 1 --num_epochs 100 --batch_size 8
 - `--device` - Device for training: `cuda` or `cpu` (default: auto-detected)
 - `--cuda_visible_devices` - Comma-separated GPU IDs (e.g., `0,1,2,3`, default: `0`)
 - `--checkpoint` - Resume from checkpoint (path fragment, e.g., `20250105-12`)
-
-The script automatically detects and handles distributed setup. Checkpoints are saved with a timestamp in `{save_path}/{YYYYMMDD-HH}/autoencoder_layer_{layer}.torch`.
 
 **Example: Train layer 1 with custom paths**
 
