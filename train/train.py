@@ -53,6 +53,7 @@ parser.add_argument('--config_path', type=str, default="/home/niksta/python_proj
 parser.add_argument('--root', type=str, default="/home/niksta/Documents/datasets_2/SemanticKitti", help='Root directory of SemanticKITTI dataset')
 parser.add_argument('--save_path', type=str, default="/home/niksta/python_projects/sga-dpcc/weights/checkpoints/autoencoder", help='Path to save checkpoints')
 parser.add_argument('--device', type=str, default=DEVICE, choices=['cuda', 'cpu'], help='Device to use for training')
+parser.add_argument('--cuda_visible_devices', type=str, default='0', help='Comma-separated GPU IDs for training (e.g., "0,1,2,3")')
 args = parser.parse_args()
 selected_layer = args.layer
 BATCH_SIZE = args.batch_size
@@ -353,7 +354,7 @@ class Train:
         return avg_val_loss
 
 if __name__ == "__main__":
-    os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+    os.environ['CUDA_VISIBLE_DEVICES'] = args.cuda_visible_devices
     os.environ['LOCAL_RANK'] = str(int(os.environ.get('RANK', '0')) % torch.cuda.device_count())
     train = Train(device=DEVICE,
                   batch_size=BATCH_SIZE,
