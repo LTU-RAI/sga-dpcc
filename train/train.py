@@ -1,16 +1,10 @@
-import warnings
-warnings.filterwarnings("ignore", category=FutureWarning)
-warnings.filterwarnings("ignore", category=UserWarning)
-
-import torch, time, os, sys, yaml, numpy as np
+import torch, time, os, sys, yaml, argparse, numpy as np
 from tqdm import tqdm
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
-import argparse
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
 from models.PatchAutoEncoder import PatchEncoderTransformerWithSem, PatchDecoderFolding, PatchAutoencoderTransformer
 from modules.PatchAutoEncoderDataset import PatchDataset
 from losses.PatchCDLoss import ChamferDistanceLossWithMask, AssistedChamferDistanceLoss
@@ -20,16 +14,7 @@ from modules.PatchCollator import PatchCollator
 from torch.utils.data.distributed import DistributedSampler
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-BATCH_SIZE = 8        # global batch size (number of patches per batch)
-NUM_WORKERS = 8       # adjust as needed
-NUM_EPOCHS = 100
-LEARNING_RATE = 5e-4 
-WEIGHT_DECAY = 1e-6
-MAX_RANGE = 50.0
-CONFIG_PATH = "/home/niksta/python_projects/recnetpp/config/config.yaml"
-ROOT = "/home/niksta/Documents/datasets_2/SemanticKitti"
-SAVE_PATH = "/home/niksta/python_projects/recnetpp/weights/checkpoints/autoencoder"
-LAST = "" #"20250327-15"
+
 
 def setup_distributed():
     if 'RANK' not in os.environ:
@@ -57,16 +42,30 @@ def is_main_process():
 # ---------------- Argument Parsing ----------------
 parser = argparse.ArgumentParser()
 parser.add_argument('--layer', type=int, required=True, help='Layer configuration to use (e.g., 1,2,3,4)')
-parser.add_argument('--batch_size', type=int, default=BATCH_SIZE, help='Global batch size')
-parser.add_argument('--num_workers', type=int, default=NUM_WORKERS, help='Number of workers for dataloader')
-parser.add_argument('--num_epochs', type=int, default=NUM_EPOCHS, help='Number of training epochs')
-parser.add_argument('--checkpoint', type=str, default=LAST, help='Last checkpoint to load')
+parser.add_argument('--batch_size', type=int, default=8, help='Global batch size')
+parser.add_argument('--num_workers', type=int, default=8, help='Number of workers for dataloader')
+parser.add_argument('--num_epochs', type=int, default=100, help='Number of training epochs')
+parser.add_argument('--checkpoint', type=str, default="", help='Last checkpoint to load')
+parser.add_argument('--lr', type=float, default=5e-4, help='Learning rate')
+parser.add_argument('--weight_decay', type=float, default=1e-6, help='Weight decay for optimizer')
+parser.add_argument('--max_range', type=float, default=50.0, help='Maximum range for point cloud processing')
+parser.add_argument('--config_path', type=str, default="/home/niksta/python_projects/sga-dpcc/config/config-latest.yaml", help='Path to main config YAML')
+parser.add_argument('--root', type=str, default="/home/niksta/Documents/datasets_2/SemanticKitti", help='Root directory of SemanticKITTI dataset')
+parser.add_argument('--save_path', type=str, default="/home/niksta/python_projects/sga-dpcc/weights/checkpoints/autoencoder", help='Path to save checkpoints')
+parser.add_argument('--device', type=str, default=DEVICE, choices=['cuda', 'cpu'], help='Device to use for training')
 args = parser.parse_args()
 selected_layer = args.layer
 BATCH_SIZE = args.batch_size
 NUM_WORKERS = args.num_workers
 NUM_EPOCHS = args.num_epochs
 LAST = args.checkpoint
+LEARNING_RATE = args.lr
+WEIGHT_DECAY = args.weight_decay
+MAX_RANGE = args.max_range
+CONFIG_PATH = args.config_path
+ROOT = args.root
+SAVE_PATH = args.save_path
+DEVICE = args.device
 
 class Train:
     def __init__(self, device, batch_size, num_workers, num_epochs, 
